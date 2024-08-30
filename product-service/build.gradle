@@ -13,6 +13,7 @@ java {
 	}
 }
 
+
 repositories {
 	mavenCentral()
 }
@@ -40,6 +41,7 @@ tasks.named('test') {
 }
 
 tasks.withType(JavaCompile) {
+	options.compilerArgs << '-parameters'
 	options.annotationProcessorPath = configurations.annotationProcessor.filter {
 		!it.name.contains("order-service")
 	}

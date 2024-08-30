@@ -32,7 +32,6 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
 
-
     public Long order(OrderDto orderDto, String id) {
 
         Product product = productRepository.findById(orderDto.getProductId()).orElseThrow(()
@@ -59,7 +58,6 @@ public class OrderService {
             OrderHistDto orderHistDto = new OrderHistDto(order);
             List<OrderItem> orderItems = order.getOrderItems();
             for (OrderItem orderItem : orderItems) {
-                String imgUrl = productRepository.findProductImgUrlById(orderItem.getProduct().getId());
                 OrderItemDto orderItemDto = new OrderItemDto(orderItem);
                 orderHistDto.addOrderItemDto(orderItemDto);
             }
@@ -102,7 +100,6 @@ public class OrderService {
 
         for (OrderDto orderDto : orderDtoList) {
             Product product = productRepository.findById(orderDto.getProductId()).orElseThrow(EntityNotFoundException::new);
-
             OrderItem orderItem = OrderItem.createOrderItem(product, orderDto.getOrderCount());
             orderItemList.add(orderItem);
 

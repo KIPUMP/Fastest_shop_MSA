@@ -4,6 +4,7 @@ import com.shop.user_service.constant.UserRoleEnum;
 import com.shop.user_service.dto.LoginRequestDto;
 import com.shop.user_service.dto.SignupRequestDto;
 import com.shop.user_service.entity.User;
+import com.shop.user_service.jwt.JwtUtil;
 import com.shop.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +21,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
     private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     public void signup(SignupRequestDto requestDto) {
@@ -61,7 +62,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void login(LoginRequestDto requestDto) {
+    public String login(LoginRequestDto requestDto) {
         String userId = requestDto.getUserId();
         String password = requestDto.getPassword();
 
@@ -71,9 +72,8 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 틀렸습니다");
         }
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userId, password);
-        Authentication authentication = authenticationManager.authenticate(token);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return jwtUtil.createToken(user.getUserId(), UserRoleEnum.valueOf(user.getRole().toString()));
 
     }
 

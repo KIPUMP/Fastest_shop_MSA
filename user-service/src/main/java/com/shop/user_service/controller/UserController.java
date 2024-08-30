@@ -19,8 +19,6 @@ import java.util.List;
 @RequestMapping("/user-service")
 public class UserController {
     private final UserService userService;
-
-
     @GetMapping("/user/login-page")
     public ResponseEntity<String> loginPage() {
         // 로그인이 필요 없으므로 이 엔드포인트는 비어 있습니다
@@ -51,7 +49,7 @@ public class UserController {
 
     @PostMapping("/user/login")
     public ResponseEntity<String> loginPage(@RequestBody LoginRequestDto requestDto) {
-        userService.login(requestDto);
-        return ResponseEntity.ok("Login success");
+        String token = userService.login(requestDto);
+        return ResponseEntity.ok("Login success" + "Token : " + token);
     }
 }
