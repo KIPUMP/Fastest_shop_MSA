@@ -10,7 +10,6 @@ public class OrderItemDto {
     private String itemName;
     private int orderCount;
     private int orderPrice;
-
     public OrderItemDto(OrderItem orderItem) {
         this.itemName = orderItem.getProduct().getProductName();
         this.orderCount = orderItem.getOrderCount();

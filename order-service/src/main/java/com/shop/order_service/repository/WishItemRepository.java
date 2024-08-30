@@ -11,9 +11,7 @@ import java.util.List;
 
 @Repository
 public interface WishItemRepository extends JpaRepository<WishItem, Long> {
-
     WishItem findByWishIdAndProductId(Long wishId, Long productId);
-
     @Query("SELECT new com.shop.order_service.dto.WishDetailDto(" +
             "    p.id, " +
             "    w.id, "+

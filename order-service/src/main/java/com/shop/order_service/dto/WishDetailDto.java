@@ -11,7 +11,6 @@ public class WishDetailDto {
     private String productName;
     private int price;
     private int wishCount;
-
     public WishDetailDto(Long wishProductId, Long productId, String productName, int price, int wishCount) {
         this.wishProductId = wishProductId;
         this.productId = productId;

@@ -50,7 +50,6 @@ public class OrderService {
     public Page<OrderHistDto> getOrderList(String id, Pageable pageable) {
         List<Order> orders = (List<Order>) orderRepository.findOrders(id, pageable);
         Long totalCount = orderRepository.countOrder(id);
-
         List<OrderHistDto> orderHistDtoList = new ArrayList<>();
 
         for (Order order : orders) {
@@ -92,8 +91,6 @@ public class OrderService {
             orderItem.cancel();
         }
     }
-
-
     public Long orders(List<OrderDto> orderDtoList, String id) {
         User user = userRepository.findByUserId(id).orElseThrow(EntityNotFoundException::new);
         List<OrderItem> orderItemList = new ArrayList<>();

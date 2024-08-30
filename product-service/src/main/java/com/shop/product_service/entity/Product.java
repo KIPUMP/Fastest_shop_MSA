@@ -36,7 +36,6 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductSellStatus productSellStatus;
 
-
     public Product() {
     }
 
@@ -49,9 +48,6 @@ public class Product {
         this.productImg = productImg;
         this.productSellStatus = productSellStatus;
     }
-
-
-
     public void removeStock(int orderCount) {
         int stock = this.productCount - orderCount;
 

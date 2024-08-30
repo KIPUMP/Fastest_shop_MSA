@@ -30,23 +30,17 @@ public class OrderItem {
     private Order order;
 
     public static OrderItem createOrderItem(Product product, int orderCount) {
-
         OrderItem orderItem = new OrderItem();
         orderItem.setProduct(product);
         orderItem.setOrderCount(orderCount);
         orderItem.setOrderPrice();
-
         product.removeStock(orderCount);
         return orderItem;
     }
-
     public void setOrderPrice() {
         this.orderPrice = this.product.getPrice() * this.orderCount;
     }
-
     public void cancel() {
         this.getProduct().addstock(orderCount);
-
     }
-
 }
