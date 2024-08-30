@@ -3,7 +3,9 @@ import com.shop.order_service.dto.WishDetailDto;
 import com.shop.order_service.dto.WishItemDto;
 import com.shop.order_service.dto.WishOrderDto;
 import com.shop.order_service.service.WishService;
+import com.shop.product_service.service.ProductService;
 import com.shop.user_service.jwt.JwtUtil;
+import com.shop.user_service.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +23,11 @@ import java.util.List;
 public class WishController {
     private final WishService wishService;
 
+    private final ProductService productService;
     private final JwtUtil jwtUtil;
 
     @PostMapping("/wish")
-    public @ResponseBody ResponseEntity order(@RequestBody @Valid WishItemDto wishItemDto,
+    public @ResponseBody ResponseEntity wish(@RequestBody @Valid WishItemDto wishItemDto,
                                               BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             StringBuilder sb = new StringBuilder();
@@ -53,7 +56,7 @@ public class WishController {
         return new ResponseEntity<Long>(wishItemId, HttpStatus.OK);
     }
     @GetMapping("/wish")
-    public ResponseEntity<?> orderHist(HttpServletRequest request) {
+    public ResponseEntity<?> wishHist(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
         if(authHeader == null || !authHeader.startsWith("Bearer")) {
             return new ResponseEntity<String>("No JWT token found in request headers", HttpStatus.UNAUTHORIZED);
@@ -130,6 +133,7 @@ public class WishController {
             if (!wishService.validateWishItem(wishOrder.getWishItemId(), userId)) {
                 return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
             }
+            productService.decreaseStock(wishOrder.getWishItemId(), wishOrder.getWishCount());
         }
         Long orderId = wishService.orderWishItem(wishOrderDtoList, userId);
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);

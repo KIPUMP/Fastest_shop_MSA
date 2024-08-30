@@ -10,6 +10,7 @@ import com.shop.order_service.repository.WishItemRepository;
 import com.shop.order_service.repository.WishRepository;
 import com.shop.product_service.entity.Product;
 import com.shop.product_service.repository.ProductRepository;
+import com.shop.product_service.service.ProductService;
 import com.shop.user_service.entity.User;
 import com.shop.user_service.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,7 +30,6 @@ public class WishService {
     private final ProductRepository productRepository;
     private final WishItemRepository wishItemRepository;
     private final UserRepository userRepository;
-
     private final OrderService orderService;
 
     public Long addWish(WishItemDto wishItemDto, String id) {

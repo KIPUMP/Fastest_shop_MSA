@@ -3,6 +3,7 @@ package com.shop.order_service.controller;
 import com.shop.order_service.dto.OrderDto;
 import com.shop.order_service.dto.OrderHistDto;
 import com.shop.order_service.service.OrderService;
+import com.shop.product_service.service.ProductService;
 import com.shop.user_service.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -25,6 +26,8 @@ import org.springframework.data.domain.Page;
 @RequestMapping("/order-service")
 public class OrderController {
     private final OrderService orderService;
+
+    private final ProductService productService;
     private final JwtUtil jwtUtil;
 
     @PostMapping("/order")
@@ -57,6 +60,7 @@ public class OrderController {
         Long orderId;
         try {
             orderId = orderService.order(orderDto, userId);
+            productService.decreaseStock(orderDto.getProductId(), orderDto.getOrderCount());
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

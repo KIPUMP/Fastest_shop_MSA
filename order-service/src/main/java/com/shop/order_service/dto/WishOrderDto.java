@@ -9,5 +9,6 @@ import java.util.List;
 @Setter
 public class WishOrderDto {
     private Long wishItemId;
+    private int wishCount;
     private List<WishOrderDto> wishOrderDtoList;
 }
