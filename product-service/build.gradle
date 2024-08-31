@@ -12,8 +12,6 @@ java {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
-
-
 repositories {
 	mavenCentral()
 }
@@ -25,10 +23,10 @@ ext {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'mysql:mysql-connector-java:8.0.23'
+	implementation 'mysql:mysql-connector-java'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	implementation 'org.redisson:redisson-spring-boot-starter:3.16.6'
+	implementation 'org.redisson:redisson-spring-boot-starter:3.16.0'
 }
 
 dependencyManagement {
@@ -37,6 +35,13 @@ dependencyManagement {
 	}
 }
 
+springBoot {
+	mainClass = 'com.shop.ProductServiceApplication'  // 실제 메인 클래스 경로로 변경하세요.
+}
+
+tasks.named('bootJar') {
+	mainClass = 'com.shop.ProductServiceApplication'  // 실제 Main 클래스의 경로로 변경하세요.
+}
 
 tasks.named('test') {
 	useJUnitPlatform()

@@ -4,6 +4,7 @@ import com.shop.product_service.exception.OutOfStockException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 @Entity
 @Getter
 @Setter
@@ -48,6 +49,7 @@ public class Product {
         this.productImg = productImg;
         this.productSellStatus = productSellStatus;
     }
+
     public void removeStock(int orderCount) {
         int stock = this.productCount - orderCount;
 
@@ -64,8 +66,8 @@ public class Product {
 
     @PreUpdate
     @PrePersist
-    public void setProductSellStatus(){
-        if (this.productCount== 0) {
+    public void changeProductSellStatus(){
+        if (this.productCount == 0) {
             productSellStatus = ProductSellStatus.SOLD_OUT;
         } else {
             productSellStatus = ProductSellStatus.SELL;
