@@ -3,12 +3,12 @@ package com.shop.product_service.service;
 import com.shop.product_service.entity.Product;
 import com.shop.product_service.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -39,22 +39,24 @@ public class ProductService {
 
     @Transactional
     public void decreaseStock(Long productId, int quantity) {
-        RLock lock = redissonClient.getLock("product-" + productId);
+        RLock lock = redissonClient.getLock(productId.toString());
         try {
-            if (lock.tryLock(1, 5, TimeUnit.SECONDS)) {
+            boolean isLocked = lock.tryLock(1000, 30, TimeUnit.SECONDS);
+            if (isLocked) {
                 Product product = productRepository.findProductById(productId).orElseThrow(RuntimeException::new);
                 product.removeStock(quantity);
                 productRepository.save(product);
             } else {
-                throw new RuntimeException("상품에 접근하여 잠금 중입니다");
+                System.out.println("상품 재고 수정 중입니다. --- (DB Locked)");
+                return;
             }
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
             throw new RuntimeException("Thread interrupted" + e);
         } finally {
             lock.unlock();
         }
     }
+
 
     public void saveProduct(Product product) {
         productRepository.save(product);

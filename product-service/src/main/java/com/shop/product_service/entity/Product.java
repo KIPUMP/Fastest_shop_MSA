@@ -67,10 +67,10 @@ public class Product {
     @PreUpdate
     @PrePersist
     public void changeProductSellStatus(){
-        if (this.productCount == 0) {
-            productSellStatus = ProductSellStatus.SOLD_OUT;
-        } else {
+        if (this.productCount > 0) {
             productSellStatus = ProductSellStatus.SELL;
+        } else {
+            productSellStatus = ProductSellStatus.SOLD_OUT;
         }
     }
 

@@ -17,6 +17,14 @@ services:
     networks:
       - commerce-network
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - commerce-network
+
   eureka-server:
     image: eureka-server:latest
     container_name: eureka-server
@@ -49,6 +57,8 @@ services:
       SPRING_DATASOURCE_USERNAME: test
       SPRING_DATASOURCE_PASSWORD: test
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
     ports:
       - "8083:8083"
     networks:
@@ -65,6 +75,8 @@ services:
       SPRING_DATASOURCE_USERNAME: test
       SPRING_DATASOURCE_PASSWORD: test
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
     ports:
       - "8082:8082"
     networks:
@@ -82,6 +94,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: test
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
       JWT_SECRET_KEY: "7Leo7JeF7L2U7Iqk7ZmU7J207YyF7ZW064u56rWQ7Jyh6rO87KCV7J2E64Gd64K06rOg64KY66m06ryt7Leo7JeF7ZWY7Iuk7IiY7J6I7J2E6rKB64uI64ukLg=="
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
     ports:
       - "8081:8081"
     networks:

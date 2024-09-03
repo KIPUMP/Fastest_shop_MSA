@@ -68,8 +68,10 @@ public class Order {
         }
     }
 
+    @PrePersist
+    @PreUpdate
     public void changeOrderStatus() {
-        if(this.orderStatus == OrderStatus.RECALL && orderDate.isBefore(LocalDateTime.now().minusDays(4))) {
+        if(orderStatus == OrderStatus.RECALL && orderDate.isBefore(LocalDateTime.now().minusDays(4))) {
             this.orderStatus = OrderStatus.RECALL_COMPLETE;
             for (OrderItem orderItem : orderItems) {
                 orderItem.cancel();
@@ -90,7 +92,5 @@ public class Order {
         } else {
             throw new IllegalStateException("배송 후 익일이 지났으므로 반품 불가입니다");
         }
-
     }
-
 }

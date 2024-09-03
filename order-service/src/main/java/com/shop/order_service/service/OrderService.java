@@ -40,8 +40,8 @@ public class OrderService {
         OrderItem orderItem = OrderItem.createOrderItem(product, orderDto.getOrderCount());
         orderItemList.add(orderItem);
         Order order = Order.createOrder(user.get(), orderItemList);
-        order.changeOrderStatus();
         orderRepository.save(order);
+
         return order.getId();
     }
 
@@ -52,7 +52,6 @@ public class OrderService {
         List<OrderHistDto> orderHistDtoList = new ArrayList<>();
 
         for (Order order : orders) {
-            order.changeOrderStatus();
             OrderHistDto orderHistDto = new OrderHistDto(order);
             List<OrderItem> orderItems = order.getOrderItems();
             for (OrderItem orderItem : orderItems) {
