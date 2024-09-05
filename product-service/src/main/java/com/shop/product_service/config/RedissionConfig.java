@@ -7,13 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ReddisionConfig {
-
+public class RedissionConfig {
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
         config.useSingleServer().setAddress("redis://localhost:6379");
         return Redisson.create(config);
     }
-
 }

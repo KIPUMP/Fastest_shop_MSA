@@ -16,9 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 
 @RequiredArgsConstructor
@@ -44,12 +44,10 @@ public class OrderController {
             return new ResponseEntity<>(sb.toString(), HttpStatus.BAD_REQUEST);
         }
         // Extract JWT token from Authorization header
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        String token = jwtUtil.getJwtFromHeader(request);
+        if (token == null) {
             return new ResponseEntity<>("No JWT token found in request headers", HttpStatus.UNAUTHORIZED);
         }
-        String token = authHeader.substring(7); // Remove "Bearer " prefix
-        // Extract user ID from JWT token
         String userId;
         try {
             userId = jwtUtil.getUserIdFromToken(token);
@@ -71,12 +69,12 @@ public class OrderController {
     public @ResponseBody ResponseEntity<Page<OrderHistDto>> orderHist(@PathVariable("page") Optional<Integer> page, HttpServletRequest request) {
         Pageable pageable = PageRequest.of(page.orElse(0), 4);
 
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        String token = jwtUtil.getJwtFromHeader(request);
+
+        if (token == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        String token = authHeader.substring(7); // Remove "Bearer " prefix
-        // Extract user ID from JWT token
+
         String userId;
         try {
             userId = jwtUtil.getUserIdFromToken(token);
@@ -91,19 +89,18 @@ public class OrderController {
 
     @PostMapping("/order/{orderId}/cancel")
     public @ResponseBody ResponseEntity<?> cancelOrder(@PathVariable("orderId") Long orderId, HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer")) {
+        String token = jwtUtil.getJwtFromHeader(request);
+        if (token == null) {
             return new ResponseEntity<>("No JWT token found in request headers", HttpStatus.UNAUTHORIZED);
         }
-        String token = authHeader.substring(7);
         String userId;
-        try{
+        try {
             userId = jwtUtil.getUserIdFromToken(token);
         } catch (Exception e) {
             return new ResponseEntity<>("Invalid JWT token", HttpStatus.UNAUTHORIZED);
         }
         if (!orderService.validateOrder(orderId, userId)) {
-           return new ResponseEntity<>("주문자가 아닙니다.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("주문자가 아닙니다.", HttpStatus.BAD_REQUEST);
         }
         orderService.cancelOrder(orderId);
         return new ResponseEntity<>(orderId, HttpStatus.OK);
@@ -111,11 +108,10 @@ public class OrderController {
 
     @PostMapping("/order/{orderId}/recall")
     public @ResponseBody ResponseEntity<?> recallOrder(@PathVariable("orderId") Long orderId, HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer")) {
-            return new ResponseEntity<>("NO JWT token found in request headers", HttpStatus.UNAUTHORIZED);
+        String token = jwtUtil.getJwtFromHeader(request);
+        if(token == null) {
+            return new ResponseEntity<>("No JWT token found in request headers", HttpStatus.UNAUTHORIZED);
         }
-        String token = authHeader.substring(7);
         String userId;
         try {
             userId = jwtUtil.getUserIdFromToken(token);

@@ -54,7 +54,7 @@ public class Product {
         int stock = this.productCount - orderCount;
 
         if (stock < 0) {
-            throw new OutOfStockException("재고가 부족합니다. 현재 재고 수량" + this.productCount);
+            throw new OutOfStockException("재고가 부족합니다. 현재 재고 수량 : " + this.productCount);
         }
         this.productCount = stock;
     }
