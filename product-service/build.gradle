@@ -35,18 +35,6 @@ dependencyManagement {
 	}
 }
 
-springBoot {
-	mainClass = 'com.shop.ProductServiceApplication'  // 실제 메인 클래스 경로로 변경하세요.
-}
-
-tasks.named('bootJar') {
-	mainClass = 'com.shop.ProductServiceApplication'  // 실제 Main 클래스의 경로로 변경하세요.
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
 tasks.withType(JavaCompile) {
 	options.compilerArgs << '-parameters'
 	options.annotationProcessorPath = configurations.annotationProcessor.filter {

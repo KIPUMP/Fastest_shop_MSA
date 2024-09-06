@@ -38,10 +38,6 @@ dependencyManagement {
 	}
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
 tasks.withType(JavaCompile) {
 	options.annotationProcessorPath = configurations.annotationProcessor.filter {
 		!it.name.contains("product-service")
