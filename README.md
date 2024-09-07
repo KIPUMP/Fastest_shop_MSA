@@ -20,5 +20,6 @@ docker-compose up -d
 - Pessimistic Lock을 사용한 재고 데이터 정합성 유지
 - API Gateway를 통한 filter 구현
 ## 💣트러블 슈팅 | 성능 최적화
-
+- 10,000명의 구매 프로세스 선착순 주문 처리
+- MSA 분리시 
 
