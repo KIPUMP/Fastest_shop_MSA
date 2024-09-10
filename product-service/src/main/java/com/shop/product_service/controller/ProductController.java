@@ -3,6 +3,7 @@ package com.shop.product_service.controller;
 import com.shop.product_service.entity.Product;
 import com.shop.product_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class ProductController {
         return ResponseEntity.ok(productList);
 
     }
+
 
     @GetMapping("/product/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable("productId") Long productId) {

@@ -26,6 +26,7 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.23'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'org.redisson:redisson-spring-boot-starter:3.16.0'
 }
 
@@ -36,7 +37,7 @@ dependencyManagement {
 }
 
 tasks.withType(JavaCompile) {
-	options.compilerArgs << '-parameters'
+	options.compilerArgs += ['-parameters']
 	options.annotationProcessorPath = configurations.annotationProcessor.filter {
 		!it.name.contains("order-service")
 	}

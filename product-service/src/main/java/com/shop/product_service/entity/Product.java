@@ -4,6 +4,7 @@ import com.shop.product_service.exception.OutOfStockException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.redis.core.RedisHash;
 
 @Entity
 @Getter
@@ -40,15 +41,6 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, String category, String description, int productCount, int price, String productImg, ProductSellStatus productSellStatus) {
-        this.productName = productName;
-        this.category = category;
-        this.description = description;
-        this.productCount = productCount;
-        this.price = price;
-        this.productImg = productImg;
-        this.productSellStatus = productSellStatus;
-    }
 
     public void removeStock(int orderCount) {
         int stock = this.productCount - orderCount;

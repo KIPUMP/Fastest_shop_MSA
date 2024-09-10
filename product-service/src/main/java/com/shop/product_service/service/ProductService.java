@@ -3,10 +3,10 @@ package com.shop.product_service.service;
 import com.shop.product_service.entity.Product;
 import com.shop.product_service.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class ProductService {
     @Autowired
     private final RedissonClient redissonClient;
 
-    // 모든 상품을 가져와서 ProductDto 리스트로 변환하여 반환
+    @Cacheable(cacheNames = "PRODUCT", cacheManager = "cacheManager")
     public List<Product> getProductList() {
         List<Product> productList = productRepository.findAll();
         List<Product> newProductList = new ArrayList<>();
@@ -32,9 +32,9 @@ public class ProductService {
         return newProductList;
     }
 
-    // 특정 상품을 가져와서 ProductDto로 변환하여 반환
     public Product getProduct(Long productId) {
-        return productRepository.findProductById(productId).orElseThrow(RuntimeException::new);
+        return productRepository.findProductById(productId)
+                .orElseThrow(() -> new RuntimeException("Product with ID " + productId + " not found"));
     }
 
     @Transactional
@@ -57,8 +57,10 @@ public class ProductService {
         }
     }
 
-
     public void saveProduct(Product product) {
         productRepository.save(product);
     }
+
+
+
 }
