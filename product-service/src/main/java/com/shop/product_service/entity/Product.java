@@ -1,5 +1,6 @@
 package com.shop.product_service.entity;
 import com.shop.product_service.constant.ProductSellStatus;
+import com.shop.product_service.dto.ProductDto;
 import com.shop.product_service.exception.OutOfStockException;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,6 +40,16 @@ public class Product {
     private ProductSellStatus productSellStatus;
 
     public Product() {
+    }
+
+    public Product(ProductDto productDto) {
+        this.productName = productDto.getProductName();
+        this.category = productDto.getCategory();
+        this.description = productDto.getDescription();
+        this.productCount = productDto.getProductCount();
+        this.price = productDto.getPrice();
+        this.productImg = productDto.getProductImg();
+        this.productSellStatus = productDto.getProductSellStatus();
     }
 
 

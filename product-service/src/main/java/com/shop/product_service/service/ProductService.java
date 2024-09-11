@@ -1,5 +1,6 @@
 package com.shop.product_service.service;
 
+import com.shop.product_service.dto.ProductDto;
 import com.shop.product_service.entity.Product;
 import com.shop.product_service.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -57,8 +58,17 @@ public class ProductService {
         }
     }
 
-    public void saveProduct(Product product) {
-        productRepository.save(product);
+    public Product saveProduct(ProductDto productDto) {
+        String productName = productDto.getProductName();
+        String description = productDto.getDescription();
+        String category = productDto.getCategory();
+        int productCount = productDto.getProductCount();
+        int price = productDto.getPrice();
+        String productImg = productDto.getProductImg();
+
+        Product product = new Product(productDto);
+
+        return productRepository.save(product);
     }
 
 

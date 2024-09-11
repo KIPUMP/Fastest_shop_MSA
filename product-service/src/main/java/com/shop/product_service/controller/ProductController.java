@@ -1,5 +1,6 @@
 package com.shop.product_service.controller;
 
+import com.shop.product_service.dto.ProductDto;
 import com.shop.product_service.entity.Product;
 import com.shop.product_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,8 @@ public class ProductController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-        productService.saveProduct(product);
+    public ResponseEntity<Product> saveProduct(@RequestBody ProductDto productDto) {
+        Product product= productService.saveProduct(productDto);
         return ResponseEntity.ok(product);
     }
 }
