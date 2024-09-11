@@ -4,6 +4,7 @@ import com.shop.product_service.dto.ProductDto;
 import com.shop.product_service.entity.Product;
 import com.shop.product_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,13 @@ public class ProductController {
     @PostMapping("/register")
     public ResponseEntity<Product> saveProduct(@RequestBody ProductDto productDto) {
         Product product= productService.saveProduct(productDto);
+        Long productId = product.getId();
         return ResponseEntity.ok(product);
+    }
+
+    @DeleteMapping("/delete/{productId}")
+    public ResponseEntity<String> deleteProduct(@PathVariable("productId") Long productId) {
+        productService.deleteProduct(productId);
+        return ResponseEntity.ok("Product Deleted");
     }
 }

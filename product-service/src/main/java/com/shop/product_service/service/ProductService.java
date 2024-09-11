@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,6 @@ public class ProductService {
     @Autowired
     private final RedissonClient redissonClient;
 
-    @Cacheable(cacheNames = "PRODUCT", cacheManager = "cacheManager")
     public List<Product> getProductList() {
         List<Product> productList = productRepository.findAll();
         List<Product> newProductList = new ArrayList<>();
@@ -33,6 +33,7 @@ public class ProductService {
         return newProductList;
     }
 
+    @Cacheable(value = "PRODUCT" , cacheManager = "cacheManager")
     public Product getProduct(Long productId) {
         return productRepository.findProductById(productId)
                 .orElseThrow(() -> new RuntimeException("Product with ID " + productId + " not found"));
@@ -58,6 +59,7 @@ public class ProductService {
         }
     }
 
+    @Cacheable(value = "PRODUCT" , cacheManager = "cacheManager")
     public Product saveProduct(ProductDto productDto) {
         String productName = productDto.getProductName();
         String description = productDto.getDescription();
@@ -71,6 +73,11 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+
+    @CacheEvict(value = "PRODUCT" , cacheManager = "cacheManager")
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+    }
 
 
 }

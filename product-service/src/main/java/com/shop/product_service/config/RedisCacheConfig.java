@@ -18,6 +18,8 @@ import java.util.Map;
 @EnableCaching
 @Configuration
 public class RedisCacheConfig {
+
+
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory cf) {
         RedisCacheConfiguration defaultConfig = RedisCacheConfiguration.defaultCacheConfig()
@@ -26,7 +28,6 @@ public class RedisCacheConfig {
 
         // 리소스 유형에 따라 만료 시간을 다르게 지정
         Map<String, RedisCacheConfiguration> redisCacheConfigMap = new HashMap<>();
-        redisCacheConfigMap.put("PRODUCTID", defaultConfig.entryTtl(Duration.ofMinutes(30)));
         redisCacheConfigMap.put("PRODUCT", defaultConfig.entryTtl(Duration.ofHours(1)));
 
         return RedisCacheManager.builder(cf)
