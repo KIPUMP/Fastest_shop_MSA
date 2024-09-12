@@ -12,11 +12,11 @@ fastest-shop은 드로우(Draw), 래플(Raffle)과 같은 온라인 오픈런(Op
 ## 🔥주요 기능
 - Spring Security, JWT를 사용한 인증 / 인가
   + 개인정보(비밀번호, 이메일) 암호화
-- Redis Caching을 사용한 재고 데이터 접근
-  + 재고 데이터 조회 속도 향상
+- Redis Caching을 사용한 상품 조회
+  + 상품 상세 조회 속도 향상
 - Pessimistic Lock, Redis의 RLock을 통한 동시성 처리를 위한 재고 데이터 반영
   + 결제 실패 및 동시 요청 시, 데이터베이스 정합성 유지
-- API Gateway를 통한 라우팅 및 인가기능 구현
+- API Gateway를 통한 라우팅 및 인가 기능 구현
   + 클라이언트의 요청 마이크로서비스 부하 분산 
 ## 💣트러블 슈팅 | 성능 최적화
 - 구매 프로세스 선착순 주문 처리
