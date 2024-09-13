@@ -13,6 +13,9 @@ fastest-shop은 드로우(Draw), 래플(Raffle), 오픈런(Open-Run)과 같은 �
 - Spring Security를 통한 회원 인증
 - API Gateway를 통한 라우팅 및 회원 인가 기능 구현
 - Netfilx Eureka server-client를 통한 MSA 기반 서비스 구현
+- Redis Caching을 통한 제품 정보 조회
+- MySQL Pessimistic Lock을 통한 선착순 구매 동시성 처리
+- @PreUpdate, @PrePersist를 통한 상품 상태 및 주문 상태 관리
 ## 💣 Trouble shooting | development
 - 구매 프로세스 선착순 주문 처리
     + Pessimistic Lock, Redis의 RLock을 통한 동시성 처리를 위한 재고 데이터 반영
