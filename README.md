@@ -6,7 +6,18 @@ fastest-shop은 드로우(Draw), 래플(Raffle), 오픈런(Open-Run)과 같은 �
 ## 🚧 아키텍쳐
 ![스크린샷 2024-09-09 121743](https://github.com/user-attachments/assets/f71f320a-fb99-4ea8-a828-65f56c4be67f)
 ## 🧑‍💻 사용기술
-![스크린샷 2024-09-10 075444](https://github.com/user-attachments/assets/4d01436c-8ef6-4c05-a955-d2a50b0df7e1)
+- Language
+  + java
+- Framework & Library
+  + Spring boot
+  + Spring Security
+  + Spring Cloud
+  + Spring Data Jpa
+- Database & Caching
+  + MySQL
+  + Redis
+- Infra
+  + Docker
 ## 📁 ERD
 ![선착순 구매-ERD 수정 (1)](https://github.com/user-attachments/assets/2148d763-5aef-4e52-8ac9-5c53d4ed2110)
 ## 🔥 주요 기능
