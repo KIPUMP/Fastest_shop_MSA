@@ -28,8 +28,7 @@ fastest-shop은 드로우(Draw), 래플(Raffle), 오픈런(Open-Run)과 같은 �
 - MySQL Pessimistic Lock을 통한 선착순 구매 동시성 처리
 - @PreUpdate, @PrePersist를 통한 상품 상태 및 주문 상태 관리
 ## 💣 Trouble shooting | development
-- 구매 프로세스 선착순 주문 처리
-https://kibeom2000.tistory.com/153
+- 구매 프로세스 선착순 주문 처리 [ https://kibeom2000.tistory.com/153 ]
 - Redis 상품 정보 조회 성능 향상
   + 상품 아이디 번호(Key)를 통한 상품 정보 캐싱
     * ![레디스_key_value 등록](https://github.com/user-attachments/assets/d5a2bfd6-eef5-4f05-980f-b85024d04cc8)
