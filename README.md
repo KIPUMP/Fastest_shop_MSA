@@ -27,7 +27,7 @@
 - **Java**
 
 ### 🛠 Framework & Library
-- **Spring Boot**: 빠르고 유연한 애플리케이션 개발
+- **Spring Boot**: REST API 개발
 - **Spring Security**: 사용자 인증 및 인가 처리
 - **Spring Cloud**: 마이크로서비스 아키텍처 지원
 - **Spring Data JPA**: 데이터 접근 및 관리
