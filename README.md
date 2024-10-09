@@ -24,20 +24,20 @@
 ## 🧑‍💻 사용 기술
 
 ### 🛠 Language
-- **Java**
+- **Java(JDK 21)**
 
 ### 🛠 Framework & Library
-- **Spring Boot**: REST API 개발
-- **Spring Security**: 사용자 인증 및 인가 처리
-- **Spring Cloud**: 마이크로서비스 아키텍처 지원
-- **Spring Data JPA**: 데이터 접근 및 관리
+- **Spring Boot(3.3.2)**: REST API 개발
+- **Spring Security(6.3.3)**: 사용자 인증 및 인가 처리
+- **Spring Cloud(4.1.0)**: 마이크로서비스 아키텍처 지원
+- **Spring Data JPA(3.2.5)**: 데이터 접근 및 관리
 
 ### 🛠 Database & Caching
-- **MySQL**: 관계형 데이터베이스
-- **Redis**: 캐싱 및 세션 관리
+- **MySQL(8.0.29)**: 관계형 데이터베이스
+- **Redis(3.0.504)**: 캐싱 및 세션 관리
 
 ### 🛠 Infra
-- **Docker**: 컨테이너 기반 배포 및 관리
+- **Docker(27.0.3)**: 컨테이너 기반 배포 및 관리
 
 ---
 
